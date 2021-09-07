@@ -1,1 +1,2 @@
+-r runtime_requirements.txt
 pytest==6.2.2

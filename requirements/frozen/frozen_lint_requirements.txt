@@ -1,5 +1,6 @@
 astroid==2.6.6
 attrs==21.2.0
+dataclasses==0.8
 importlib-metadata==4.8.1
 iniconfig==1.1.1
 isort==5.9.3
