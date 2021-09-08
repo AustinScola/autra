@@ -1,9 +1,12 @@
 """Tetromino pieces."""
+from random import choice
+
+from tetris.piece import Piece
+
 # yapf: disable
 from tetris.orientation import (SingleOrientation, DualOrientation, QuadOrientation,  # isort:skip
                                 Identity, Horizontal, Vertical, Up, Right, Down, Left)
 # yapf: enable
-from tetris.piece import Piece
 
 
 class I(Piece):  # pylint: disable=invalid-name,too-few-public-methods
@@ -84,3 +87,14 @@ class Z(Piece):  # pylint: disable=invalid-name,too-few-public-methods
 
     def __init__(self, orientation: DualOrientation = Horizontal) -> None:
         super().__init__(orientation)
+
+
+PIECES = {I, J, L, O, S, T, Z}
+_PIECES_LIST = [I, J, L, O, S, T, Z]
+
+
+def random_piece() -> Piece:
+    """Return a random piece."""
+    piece_type = choice(_PIECES_LIST)
+    piece = piece_type()
+    return piece

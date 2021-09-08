@@ -10,7 +10,7 @@ from tetris.orientation import (SingleOrientation, DualOrientation, QuadOrientat
                                 Identity, Horizontal, Vertical, Up, Right, Down, Left)
 # yapf: enable
 
-from tetris.pieces import I, J, L, O, S, T, Z  # isort:skip
+from tetris.pieces import I, J, L, O, S, T, Z, PIECES, random_piece  # isort:skip
 
 
 # yapf: disable
@@ -205,3 +205,15 @@ def test_z_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
     z = Z(*arguments, **keyword_arguments)  # pylint: disable=invalid-name
 
     assert z.orientation == expected_orientation
+
+
+def test_pieces() -> None:
+    """Test the set of pieces."""
+    assert PIECES == {I, J, L, O, S, T, Z}
+
+
+def test_random_piece() -> None:
+    """Test the helper method for getting a random tetromino piece."""
+    piece = random_piece()
+
+    assert type(piece) in PIECES
