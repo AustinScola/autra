@@ -1,4 +1,6 @@
 """Test the Tetris game state representation."""
+from seligimus.maths.integer_position_2d import IntegerPosition2D as Position
+
 from tetris.pieces import PIECES
 from tetris.state import COLUMNS, HIDDEN_ROWS, ROWS, State
 
@@ -24,6 +26,8 @@ def test_state_init() -> None:
 
     assert type(state.piece) in PIECES
     assert type(state.next_piece) in PIECES
+
+    assert state.piece_position == Position(5, 0)
 
     assert len(state.playfield) == ROWS
     assert all(len(row) == COLUMNS for row in state.playfield)
