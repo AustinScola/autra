@@ -11,3 +11,8 @@ class Piece:  # pylint: disable=too-few-public-methods
 
     def __init__(self, orientation: Orientation) -> None:
         self.orientation = orientation
+
+    @property
+    def rotation(self) -> Rotation:
+        """Return the current rotation of the piece based on the orientation."""
+        return self.rotations[self.orientation]
