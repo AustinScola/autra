@@ -1,5 +1,6 @@
 """The state of a Tetris game."""
 from dataclasses import dataclass
+from typing import Iterator, List
 
 from seligimus.maths.integer_position_2d import IntegerPosition2D as Position
 
@@ -12,6 +13,19 @@ COLUMNS = 10
 
 
 @dataclass
+class Playfield:
+    """The playfield of a game of Tetris."""
+    grid = [[False] * COLUMNS for _ in range(ROWS)]
+
+    def __len__(self) -> int:
+        """Return the number of rows."""
+        return len(self.grid)
+
+    def __iter__(self) -> Iterator[List[bool]]:
+        return iter(self.grid)
+
+
+@dataclass
 class State:
     """The state of a Tetris game."""
     piece: Piece = random_piece()
@@ -19,4 +33,4 @@ class State:
 
     piece_position: Position = Position(5, 0)
 
-    playfield = [[False] * COLUMNS for _ in range(ROWS)]
+    playfield: Playfield = Playfield()

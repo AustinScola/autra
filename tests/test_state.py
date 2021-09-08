@@ -2,7 +2,7 @@
 from seligimus.maths.integer_position_2d import IntegerPosition2D as Position
 
 from tetris.pieces import PIECES
-from tetris.state import COLUMNS, HIDDEN_ROWS, ROWS, State
+from tetris.state import COLUMNS, HIDDEN_ROWS, ROWS, Playfield, State
 
 
 def test_rows() -> None:
@@ -29,5 +29,19 @@ def test_state_init() -> None:
 
     assert state.piece_position == Position(5, 0)
 
-    assert len(state.playfield) == ROWS
-    assert all(len(row) == COLUMNS for row in state.playfield)
+    assert state.playfield == Playfield()
+
+
+def test_playfield_init() -> None:
+    """Test initializing a playfield."""
+    playfield = Playfield()
+
+    assert len(playfield) == ROWS
+    assert all(len(row) == COLUMNS for row in playfield)
+
+
+def test_playfield_len() -> None:
+    """Test the length of a playfield."""
+    playfield = Playfield()
+
+    assert len(playfield) == ROWS
