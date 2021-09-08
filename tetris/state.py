@@ -12,7 +12,7 @@ HIDDEN_ROWS = 2
 COLUMNS = 10
 
 
-@dataclass
+@dataclass(frozen=True)
 class Playfield:
     """The playfield of a game of Tetris."""
     grid = [[False] * COLUMNS for _ in range(ROWS)]
@@ -25,7 +25,7 @@ class Playfield:
         return iter(self.grid)
 
 
-@dataclass
+@dataclass(frozen=True)
 class State:
     """The state of a Tetris game."""
     piece: Piece = random_piece()
