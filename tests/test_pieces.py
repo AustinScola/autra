@@ -23,7 +23,7 @@ from tetris.pieces import I, J, L, O, S, T, Z, PIECES, random_piece  # isort:ski
 def test_i_rotations(orientation: DualOrientation,
                      expected_rotation: Rotation) -> None:
     """Test the I piece orientation to rotation mapping."""
-    assert I.rotations[orientation] == expected_rotation
+    assert I.ROTATIONS[orientation] == expected_rotation
 
 
 # yapf: disable
@@ -52,7 +52,7 @@ def test_i_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 def test_j_rotations(orientation: QuadOrientation,
                      expected_rotation: Rotation) -> None:
     """Test the J piece orientation to rotation mapping."""
-    assert J.rotations[orientation] == expected_rotation
+    assert J.ROTATIONS[orientation] == expected_rotation
 
 
 # yapf: disable
@@ -81,7 +81,7 @@ def test_j_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 def test_l_rotations(orientation: QuadOrientation,
                      expected_rotation: Rotation) -> None:
     """Test the L piece orientation to rotation mapping."""
-    assert L.rotations[orientation] == expected_rotation
+    assert L.ROTATIONS[orientation] == expected_rotation
 
 
 # yapf: disable
@@ -107,7 +107,7 @@ def test_l_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 def test_o_rotations(orientation: SingleOrientation,
                      expected_rotation: Rotation) -> None:
     """Test the O piece orientation to rotation mapping."""
-    assert O.rotations[orientation] == expected_rotation
+    assert O.ROTATIONS[orientation] == expected_rotation
 
 
 # yapf: disable
@@ -134,7 +134,7 @@ def test_o_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 def test_s_rotations(orientation: DualOrientation,
                      expected_rotation: Rotation) -> None:
     """Test the S piece orientation to rotation mapping."""
-    assert S.rotations[orientation] == expected_rotation
+    assert S.ROTATIONS[orientation] == expected_rotation
 
 
 # yapf: disable
@@ -163,7 +163,7 @@ def test_s_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 def test_t_rotations(orientation: DualOrientation,
                      expected_rotation: Rotation) -> None:
     """Test the T piece orientation to rotation mapping."""
-    assert T.rotations[orientation] == expected_rotation
+    assert T.ROTATIONS[orientation] == expected_rotation
 
 
 # yapf: disable
@@ -190,7 +190,7 @@ def test_t_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 def test_z_rotations(orientation: DualOrientation,
                      expected_rotation: Rotation) -> None:
     """Test the Z piece orientation to rotation mapping."""
-    assert Z.rotations[orientation] == expected_rotation
+    assert Z.ROTATIONS[orientation] == expected_rotation
 
 
 # yapf: disable
