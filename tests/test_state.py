@@ -1,7 +1,7 @@
 """Test the Tetris game state representation."""
-from seligimus.maths.integer_position_2d import IntegerPosition2D as Position
 
 from tetris.pieces import PIECES
+from tetris.position import Position
 from tetris.state import COLUMNS, HIDDEN_ROWS, ROWS, Playfield, State
 
 

@@ -3,6 +3,7 @@ from typing import Any, Dict, List
 
 import pytest
 
+from tetris.position import Position
 from tetris.rotation import Rotation
 
 # yapf: disable
@@ -15,8 +16,8 @@ from tetris.pieces import I, J, L, O, S, T, Z, PIECES, random_piece  # isort:ski
 
 # yapf: disable
 @pytest.mark.parametrize('orientation, expected_rotation', [
-    (Vertical, {(0, -2), (0, -1), (0, 0), (0, 1)}),
-    (Horizontal, {(-2, 0), (-1, 0), (0, 0), (1, 0)}),
+    (Vertical, {Position(0, -2), Position(0, -1), Position(0, 0), Position(0, 1)}),
+    (Horizontal, {Position(-2, 0), Position(-1, 0), Position(0, 0), Position(1, 0)}),
 ])
 # yapf: enable
 def test_i_rotations(orientation: DualOrientation,
@@ -42,10 +43,10 @@ def test_i_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 
 # yapf: disable
 @pytest.mark.parametrize('orientation, expected_rotation', [
-    (Up, {(-1, -1), (-1, 0), (0, 0), (1, 0)}),
-    (Right, {(0, -1), (1, -1), (0, 0), (0, 1)}),
-    (Down, {(-1, 0), (0, 0), (1, 0), (1, 1)}),
-    (Left, {(0, -1), (0, 0), (-1, 1), (0, 1)})
+    (Up, {Position(-1, -1), Position(-1, 0), Position(0, 0), Position(1, 0)}),
+    (Right, {Position(0, -1), Position(1, -1), Position(0, 0), Position(0, 1)}),
+    (Down, {Position(-1, 0), Position(0, 0), Position(1, 0), Position(1, 1)}),
+    (Left, {Position(0, -1), Position(0, 0), Position(-1, 1), Position(0, 1)})
 ])
 # yapf: enable
 def test_j_rotations(orientation: QuadOrientation,
@@ -71,10 +72,10 @@ def test_j_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 
 # yapf: disable
 @pytest.mark.parametrize('orientation, expected_rotation', [
-    (Up, {(1, -1), (-1, 0), (0, 0), (1, 0)}),
-    (Right, {(0, -1), (0, 0), (0, 1), (1, 1)}),
-    (Down, {(-1, 0), (0, 0), (1, 0), (-1, 1)}),
-    (Left, {(-1, -1), (0, -1), (0, 0), (0, 1)})
+    (Up, {Position(1, -1), Position(-1, 0), Position(0, 0), Position(1, 0)}),
+    (Right, {Position(0, -1), Position(0, 0), Position(0, 1), Position(1, 1)}),
+    (Down, {Position(-1, 0), Position(0, 0), Position(1, 0), Position(-1, 1)}),
+    (Left, {Position(-1, -1), Position(0, -1), Position(0, 0), Position(0, 1)})
 ])
 # yapf: enable
 def test_l_rotations(orientation: QuadOrientation,
@@ -100,7 +101,7 @@ def test_l_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 
 # yapf: disable
 @pytest.mark.parametrize('orientation, expected_rotation', [
-    (Identity, {(-1, 0), (0, 0), (-1, 1), (0, 1)}),
+    (Identity, {Position(-1, 0), Position(0, 0), Position(-1, 1), Position(0, 1)}),
 ])
 # yapf: enable
 def test_o_rotations(orientation: SingleOrientation,
@@ -126,8 +127,8 @@ def test_o_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 
 # yapf: disable
 @pytest.mark.parametrize('orientation, expected_rotation', [
-    (Horizontal, {(0, 0), (1, 0), (-1, 1), (0, 1)}),
-    (Vertical, {(0, -1), (0, 0), (1, 0), (1, 1)})
+    (Horizontal, {Position(0, 0), Position(1, 0), Position(-1, 1), Position(0, 1)}),
+    (Vertical, {Position(0, -1), Position(0, 0), Position(1, 0), Position(1, 1)})
 ])
 # yapf: enable
 def test_s_rotations(orientation: DualOrientation,
@@ -153,10 +154,10 @@ def test_s_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 
 # yapf: disable
 @pytest.mark.parametrize('orientation, expected_rotation', [
-    (Up, {(-1, 0), (0, 0), (1, 0), (0, -1)}),
-    (Right, {(0, -1), (0, 0), (1, 0), (0, 1)}),
-    (Down, {(-1, 0), (0, 0), (1, 0), (0, 1)}),
-    (Left, {(0, -1), (-1, 0), (0, 0), (0, 1)})
+    (Up, {Position(-1, 0), Position(0, 0), Position(1, 0), Position(0, -1)}),
+    (Right, {Position(0, -1), Position(0, 0), Position(1, 0), Position(0, 1)}),
+    (Down, {Position(-1, 0), Position(0, 0), Position(1, 0), Position(0, 1)}),
+    (Left, {Position(0, -1), Position(-1, 0), Position(0, 0), Position(0, 1)})
 ])
 # yapf: enable
 def test_t_rotations(orientation: DualOrientation,
@@ -182,8 +183,8 @@ def test_t_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 
 # yapf: disable
 @pytest.mark.parametrize('orientation, expected_rotation', [
-    (Vertical, {(-1, 0), (0, 0), (0, 1), (1, 1)}),
-    (Horizontal, {(1, -1), (0, 0), (1, 0), (0, 1)})
+    (Vertical, {Position(-1, 0), Position(0, 0), Position(0, 1), Position(1, 1)}),
+    (Horizontal, {Position(1, -1), Position(0, 0), Position(1, 0), Position(0, 1)})
 ])
 # yapf: enable
 def test_z_rotations(orientation: DualOrientation,

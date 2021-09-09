@@ -2,10 +2,9 @@
 from dataclasses import dataclass
 from typing import Iterator, Tuple
 
-from seligimus.maths.integer_position_2d import IntegerPosition2D as Position
-
 from tetris.piece import Piece
 from tetris.pieces import random_piece
+from tetris.position import Position
 
 ROWS = 22
 HIDDEN_ROWS = 2

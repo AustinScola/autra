@@ -6,6 +6,7 @@ import pytest
 from tetris.orientation import Orientation, Up
 from tetris.piece import Piece
 from tetris.pieces import L
+from tetris.position import Position
 from tetris.rotation import Rotation
 
 
@@ -24,7 +25,7 @@ def test_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 
 # yapf: disable
 @pytest.mark.parametrize('piece, expected_rotation', [
-    (L(Up), {(1, -1), (-1, 0), (0, 0), (1, 0)}),
+    (L(Up), {Position(1, -1), Position(-1, 0), Position(0, 0), Position(1, 0)}),
 ])
 # yapf: enable
 def test_rotation(piece: Piece, expected_rotation: Rotation) -> None:
