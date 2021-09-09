@@ -1,4 +1,7 @@
 """Test the Tetris game state representation."""
+from typing import Tuple
+
+import pytest
 
 from tetris.pieces import PIECES
 from tetris.position import Position
@@ -45,3 +48,16 @@ def test_playfield_len() -> None:
     playfield = Playfield()
 
     assert len(playfield) == ROWS
+
+
+# yapf: disable
+@pytest.mark.parametrize('playfield, index, expected_row', [
+    (Playfield(), 0, (False, ) * COLUMNS),
+])
+# yapf: enable
+def test_playfield_get_item(playfield: Playfield, index: int,
+                            expected_row: Tuple[bool, ...]) -> None:
+    """Test accessing a row of the playfield."""
+    row: Tuple[bool, ...] = playfield[index]
+
+    assert row == expected_row

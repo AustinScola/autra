@@ -24,6 +24,9 @@ class Playfield:
     def __iter__(self) -> Iterator[Tuple[bool, ...]]:
         return iter(self.grid)
 
+    def __getitem__(self, index: int) -> Tuple[bool, ...]:
+        return self.grid[index]
+
 
 @dataclass(frozen=True)
 class State:
