@@ -1,4 +1,6 @@
 """A tetromino piece rotation."""
-from typing import Set, Tuple
+from typing import Set
 
-Rotation = Set[Tuple[int, int]]
+from tetris.position import Position
+
+Rotation = Set[Position]
