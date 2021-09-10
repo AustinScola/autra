@@ -27,6 +27,11 @@ class Playfield:
     def __getitem__(self, index: int) -> Tuple[bool, ...]:
         return self.grid[index]
 
+    @property
+    def visible_rows(self) -> Tuple[Tuple[bool, ...], ...]:
+        """Return the visible rows of the playfield."""
+        return self.grid[:ROWS - HIDDEN_ROWS]
+
     def lock_piece(self, piece: Piece, position: Position) -> 'Playfield':
         """Return the playfield with the given piece locked in the given position."""
         grid = self.grid

@@ -1,13 +1,30 @@
 """Test the tetris game."""
+from typing import Any, Dict, List, Optional
 from unittest.mock import Mock
 
 import pytest
 
 from test_data.playfields import PlayfieldWithTLockedAtMiddleBottom
+from test_data.renderers import TERMINAL_RENDERER
 from tetris.pieces import PIECES, J, T
 from tetris.position import Position
+from tetris.renderer import Renderer
 from tetris.state import Playfield, State
 from tetris.tetris import Tetris
+
+
+# yapf: disable # pylint: disable=line-too-long
+@pytest.mark.parametrize('arguments, keyword_arguments, expected_renderer', [
+    ([], {}, None),
+    ([TERMINAL_RENDERER], {}, TERMINAL_RENDERER),
+])
+# yapf: enable # pylint: enable=line-too-long
+def test_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
+              expected_renderer: Optional[Renderer]) -> None:
+    """Test initializing Tetris."""
+    tetris = Tetris(*arguments, **keyword_arguments)
+
+    assert tetris.renderer is expected_renderer
 
 
 def test_play() -> None:

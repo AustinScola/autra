@@ -45,6 +45,20 @@ def test_playfield_init() -> None:
     assert all(len(row) == COLUMNS for row in playfield)
 
 
+# yapf: disable
+@pytest.mark.parametrize('playfield, expected_visible_rows', [
+    (FilledPlayfield, tuple((True, ) * COLUMNS for _ in range(ROWS - HIDDEN_ROWS))),
+])
+# yapf: enable
+def test_playfield_visible_rows(
+        playfield: Playfield, expected_visible_rows: Tuple[Tuple[bool, ...],
+                                                           ...]) -> None:
+    """Test the visible rows of a playfield."""
+    visible_rows: Tuple[Tuple[bool, ...], ...] = playfield.visible_rows
+
+    assert visible_rows == expected_visible_rows
+
+
 def test_playfield_len() -> None:
     """Test the length of a playfield."""
     playfield = Playfield()
