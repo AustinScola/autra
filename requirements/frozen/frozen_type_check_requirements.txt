@@ -9,7 +9,7 @@ pluggy==0.13.1
 py==1.10.0
 pyparsing==2.4.7
 pytest==6.2.2
-seligimus==0.18.1
+seligimus==0.19.0
 toml==0.10.2
 typed-ast==1.4.3
 typing-extensions==3.10.0.2
