@@ -1,19 +1,32 @@
 """The game of Tetris."""
 from dataclasses import replace
+from typing import Optional
 
 from tetris.position import Position
+from tetris.renderer import Renderer
 from tetris.state import State
 
 
 class Tetris:
     """The game of Tetris."""
-    @staticmethod
-    def play() -> None:
+    def __init__(self, renderer: Optional[Renderer] = None) -> None:
+        self.renderer: Optional[Renderer] = renderer
+
+    def play(self) -> None:
         """Play a game of tetris."""
+        if self.renderer is not None:  # pragma: no cover
+            self.renderer.start()
+
         state: State = State()
 
         while not state.game_over:
             state = Tetris.update(state)
+
+            if self.renderer is not None:  # pragma: no cover
+                self.renderer.update(state)
+
+        if self.renderer is not None:  # pragma: no cover
+            self.renderer.end()
 
     @staticmethod
     def update(state: State) -> State:
