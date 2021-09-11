@@ -10,7 +10,12 @@ from tetris.pieces import PIECES, J, T
 from tetris.position import Position
 from tetris.renderer import Renderer
 from tetris.state import Playfield, State
-from tetris.tetris import Tetris
+from tetris.tetris import FPS, Tetris
+
+
+def test_fps() -> None:
+    """Test the frames per second value."""
+    assert FPS == 60.0988
 
 
 # yapf: disable # pylint: disable=line-too-long
