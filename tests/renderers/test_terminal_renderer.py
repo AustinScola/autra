@@ -1,11 +1,17 @@
 """Test the terminal renderer."""
+from typing import Set
+
 import pytest
 from _pytest.capture import CaptureFixture
 from seligimus.standards.ansi.escape_codes.screen import (DISABLE_ALTERNATIVE_SCREEN,
                                                           ENABLE_ALTERNATIVE_SCREEN)
 
 from test_data.playfields import FilledPlayfield
-from test_data.terminal_renderings import FILLED_PLAYFIELD_OUTPUT
+from test_data.terminal_renderings import FILLED_PLAYFIELD_OUTPUT, JU_AT_2_3_PARTS
+from tetris.orientation import Up
+from tetris.piece import Piece
+from tetris.pieces import J
+from tetris.position import Position
 from tetris.renderer import Renderer
 from tetris.renderers.terminal_renderer import TerminalRenderer
 from tetris.state import Playfield, State
@@ -54,6 +60,24 @@ def test_draw_playfield(capsys: CaptureFixture, playfield: Playfield,
     captured_output, _ = capsys.readouterr()
 
     assert list(captured_output) == list(expected_output)
+
+
+# yapf: disable
+@pytest.mark.parametrize('piece, position, expected_output', [
+    (J(Up), Position(2, 3), JU_AT_2_3_PARTS)
+])
+# yapf: enable
+def test_draw_piece(capsys: CaptureFixture, piece: Piece, position: Position,
+                    expected_output: Set[str]) -> None:
+    """Test drawing a piece at a position."""
+    TerminalRenderer._draw_piece(piece, position)  # pylint: disable=protected-access
+    captured_output, _ = capsys.readouterr()
+
+    for part in expected_output:
+        print(list(part), part in captured_output, list(captured_output))
+
+    assert all(part in captured_output for part in expected_output)
+    assert len(captured_output) == sum(len(value) for value in expected_output)
 
 
 def test_end(capsys: CaptureFixture) -> None:
