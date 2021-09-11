@@ -2,7 +2,7 @@
 import sys
 
 from seligimus.maths.integer_position_2d import IntegerPosition2D
-from seligimus.standards.ansi.escape_codes.cursor import get_move_cursor
+from seligimus.standards.ansi.escape_codes.cursor import HIDE_CURSOR, SHOW_CURSOR, get_move_cursor
 from seligimus.standards.ansi.escape_codes.screen import (DISABLE_ALTERNATIVE_SCREEN,
                                                           ENABLE_ALTERNATIVE_SCREEN)
 
@@ -19,6 +19,7 @@ UNIT_SIZE = 2
 class TerminalRenderer(Renderer):
     """A renderer for the terminal."""
     def start(self) -> None:
+        sys.stdout.write(HIDE_CURSOR)
         sys.stdout.write(ENABLE_ALTERNATIVE_SCREEN)
         sys.stdout.flush()
 
@@ -53,4 +54,5 @@ class TerminalRenderer(Renderer):
 
     def end(self) -> None:
         sys.stdout.write(DISABLE_ALTERNATIVE_SCREEN)
+        sys.stdout.write(SHOW_CURSOR)
         sys.stdout.flush()
