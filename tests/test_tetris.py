@@ -18,12 +18,12 @@ def test_fps() -> None:
     assert FPS == 60.0988
 
 
-# yapf: disable # pylint: disable=line-too-long
+# yapf: disable
 @pytest.mark.parametrize('arguments, keyword_arguments, expected_renderer', [
     ([], {}, None),
     ([TERMINAL_RENDERER], {}, TERMINAL_RENDERER),
 ])
-# yapf: enable # pylint: enable=line-too-long
+# yapf: enable
 def test_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
               expected_renderer: Optional[Renderer]) -> None:
     """Test initializing Tetris."""
