@@ -24,6 +24,7 @@ class TerminalRenderer(Renderer):
 
     def update(self, state: State) -> None:
         self._draw_playfield(state.playfield)
+        self._draw_piece(state.piece, state.piece_position)
 
     @staticmethod
     def _draw_playfield(playfield: Playfield) -> None:

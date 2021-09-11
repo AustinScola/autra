@@ -1,5 +1,6 @@
 """Test the terminal renderer."""
 from typing import Set
+from unittest.mock import patch
 
 import pytest
 from _pytest.capture import CaptureFixture
@@ -33,19 +34,23 @@ def test_start(capsys: CaptureFixture) -> None:
 
 
 # yapf: disable
-@pytest.mark.parametrize('state, expected_output', [
-    (State(playfield=FilledPlayfield), FILLED_PLAYFIELD_OUTPUT),
+@pytest.mark.parametrize('state', [
+    (State(playfield=FilledPlayfield)),
 ])
 # yapf: enable
-def test_update(capsys: CaptureFixture, state: State,
-                expected_output: str) -> None:
+def test_update(state: State) -> None:
     """Test rendering the state."""
     terminal_renderer = TerminalRenderer()
 
-    terminal_renderer.update(state)
-    captured_output, _ = capsys.readouterr()
+    # pylint: disable=line-too-long
+    with patch('tetris.renderers.terminal_renderer.TerminalRenderer._draw_playfield') as draw_playfield_mock, \
+        patch('tetris.renderers.terminal_renderer.TerminalRenderer._draw_piece') as draw_piece_mock:
+        # pylint: enable=line-too-long
 
-    assert list(captured_output) == list(expected_output)
+        terminal_renderer.update(state)
+
+        draw_playfield_mock.assert_called_once()
+        draw_piece_mock.assert_called_once()
 
 
 # yapf: disable
