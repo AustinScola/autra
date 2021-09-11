@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 import pytest
 from _pytest.capture import CaptureFixture
+from seligimus.standards.ansi.escape_codes.cursor import HIDE_CURSOR, SHOW_CURSOR
 from seligimus.standards.ansi.escape_codes.screen import (DISABLE_ALTERNATIVE_SCREEN,
                                                           ENABLE_ALTERNATIVE_SCREEN)
 
@@ -30,7 +31,8 @@ def test_start(capsys: CaptureFixture) -> None:
     terminal_renderer.start()
     captured_output, _ = capsys.readouterr()
 
-    assert list(captured_output) == list(ENABLE_ALTERNATIVE_SCREEN)
+    assert list(captured_output) == list(HIDE_CURSOR +
+                                         ENABLE_ALTERNATIVE_SCREEN)
 
 
 # yapf: disable
@@ -92,4 +94,5 @@ def test_end(capsys: CaptureFixture) -> None:
     terminal_renderer.end()
     captured_output, _ = capsys.readouterr()
 
-    assert list(captured_output) == list(DISABLE_ALTERNATIVE_SCREEN)
+    assert list(captured_output) == list(DISABLE_ALTERNATIVE_SCREEN +
+                                         SHOW_CURSOR)
