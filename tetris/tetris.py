@@ -1,10 +1,14 @@
 """The game of Tetris."""
 from dataclasses import replace
+from time import sleep, time
 from typing import Optional
 
 from tetris.position import Position
 from tetris.renderer import Renderer
 from tetris.state import State
+
+FPS = 60.0988
+FRAME_LENGTH = 1 / 60.0988
 
 
 class Tetris:
@@ -19,11 +23,15 @@ class Tetris:
 
         state: State = State()
 
+        frame_start = time()
         while not state.game_over:
             state = Tetris.update(state)
 
             if self.renderer is not None:  # pragma: no cover
                 self.renderer.update(state)
+
+            sleep(FRAME_LENGTH - (time() - frame_start))
+            frame_start = time()
 
         if self.renderer is not None:  # pragma: no cover
             self.renderer.end()
