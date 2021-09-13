@@ -4,6 +4,7 @@ from unittest.mock import Mock
 import pytest
 
 from tetris.agent import Agent
+from tetris.outputs import Outputs
 from tetris.state import State
 
 
@@ -32,7 +33,7 @@ def test_outputs() -> None:
 
     outputs = agent.outputs
 
-    assert outputs is None
+    assert isinstance(outputs, Outputs)
 
 
 def test_end() -> None:

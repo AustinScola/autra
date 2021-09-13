@@ -1,6 +1,5 @@
 """A game playing agent."""
-from typing import Any
-
+from tetris.outputs import Outputs
 from tetris.state import State
 
 
@@ -13,9 +12,9 @@ class Agent:
         """Update the state that the agent is aware of."""
 
     @property
-    def outputs(self) -> Any:
+    def outputs(self) -> Outputs:
         """Return the outputs of the agent."""
-        return None
+        return Outputs()
 
     def end(self) -> None:
         """End the agent."""
