@@ -3,6 +3,7 @@ from dataclasses import replace
 from time import sleep, time
 from typing import Optional
 
+from tetris.agent import Agent
 from tetris.position import Position
 from tetris.renderer import Renderer
 from tetris.state import State
@@ -16,12 +17,15 @@ class Tetris:
     def __init__(self, renderer: Optional[Renderer] = None) -> None:
         self.renderer: Optional[Renderer] = renderer
 
-    def play(self) -> None:
+    def play(self, agent: Agent) -> None:
         """Play a game of tetris."""
         if self.renderer is not None:  # pragma: no cover
             self.renderer.start()
 
         state: State = State()
+
+        agent.start()
+        agent.update(state)
 
         frame_start = time()
         while not state.game_over:
@@ -30,11 +34,15 @@ class Tetris:
             if self.renderer is not None:  # pragma: no cover
                 self.renderer.update(state)
 
+            agent.update(state)
+
             sleep(FRAME_LENGTH - (time() - frame_start))
             frame_start = time()
 
         if self.renderer is not None:  # pragma: no cover
             self.renderer.end()
+
+        agent.end()
 
     @staticmethod
     def update(state: State) -> State:
