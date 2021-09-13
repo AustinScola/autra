@@ -6,6 +6,7 @@ import pytest
 
 from test_data.playfields import PlayfieldWithTLockedAtMiddleBottom
 from test_data.renderers import TERMINAL_RENDERER
+from tetris.agent import Agent
 from tetris.pieces import PIECES, J, T
 from tetris.position import Position
 from tetris.renderer import Renderer
@@ -33,10 +34,11 @@ def test_init(arguments: List[Any], keyword_arguments: Dict[str, Any],
 
 
 def test_play() -> None:
-    """Test playing a game of Tetris."""
+    """Test playing a game of Tetris by an agent."""
     tetris = Tetris()
+    agent = Agent()
 
-    tetris.play()
+    tetris.play(agent)
 
 
 # yapf: disable # pylint: disable=line-too-long
