@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 
 import pytest
 
-from tetris.orientation import Orientation, Up
+from tetris.orientation import Orientation, Right, Up
 from tetris.piece import Piece
 from tetris.pieces import L
 from tetris.position import Position
@@ -33,3 +33,16 @@ def test_rotation(piece: Piece, expected_rotation: Rotation) -> None:
     rotation: Rotation = piece.rotation
 
     assert rotation == expected_rotation
+
+
+# yapf: disable
+@pytest.mark.parametrize('piece, expected_rotated_piece', [
+    (L(Up), L(Right)),
+])
+# yapf: enable
+def test_rotated_clockwise(piece: Piece,
+                           expected_rotated_piece: Piece) -> None:
+    """Test rotating a piece clockwise."""
+    rotated_piece: Piece = piece.rotated_clockwise
+
+    assert rotated_piece == expected_rotated_piece

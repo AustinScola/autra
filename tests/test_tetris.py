@@ -7,7 +7,9 @@ import pytest
 from test_data.playfields import PlayfieldWithTLockedAtMiddleBottom
 from test_data.renderers import TERMINAL_RENDERER
 from tetris.agent import Agent
-from tetris.pieces import PIECES, J, T
+from tetris.orientation import Left
+from tetris.outputs import Outputs as Inputs
+from tetris.pieces import PIECES, I, J, T
 from tetris.position import Position
 from tetris.renderer import Renderer
 from tetris.state import Playfield, State
@@ -42,15 +44,17 @@ def test_play() -> None:
 
 
 # yapf: disable # pylint: disable=line-too-long
-@pytest.mark.parametrize('state, expected_new_state, expect_new_piece', [
-    (State(T(), J(), Position(5, 0), Playfield()), State(T(), J(), Position(5, 1), Playfield()), False),
-    (State(T(), J(), Position(5, 18), Playfield()), State(J(), Mock(), Position(5, 0), PlayfieldWithTLockedAtMiddleBottom), True),
+@pytest.mark.parametrize('state, inputs, expected_new_state, expect_new_piece', [
+    (State(T(), J(), Position(5, 0), Playfield()), Inputs(), State(T(), J(), Position(5, 1), Playfield()), False),
+    (State(T(), J(), Position(5, 18), Playfield()), Inputs(), State(J(), Mock(), Position(5, 0), PlayfieldWithTLockedAtMiddleBottom), True),
+    (State(T(), J(), Position(5, 0), Playfield()), Inputs(a=True), State(T(Left), J(), Position(5, 1), Playfield()), False),
+    (State(I(), J(), Position(5, 16), PlayfieldWithTLockedAtMiddleBottom), Inputs(a=True), State(I(), J(), Position(5, 17), PlayfieldWithTLockedAtMiddleBottom), False),
 ])
 # yapf: enable # pylint: enable=line-too-long
-def test_update(state: State, expected_new_state: State,
+def test_update(state: State, inputs: Inputs, expected_new_state: State,
                 expect_new_piece: bool) -> None:
     """Test updating a game of Tetris."""
-    new_state: State = Tetris.update(state)
+    new_state: State = Tetris.update(state, inputs)
 
     assert new_state.piece == expected_new_state.piece
 

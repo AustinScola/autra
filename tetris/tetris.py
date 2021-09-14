@@ -4,6 +4,7 @@ from time import sleep, time
 from typing import Optional
 
 from tetris.agent import Agent
+from tetris.outputs import Outputs as Inputs
 from tetris.position import Position
 from tetris.renderer import Renderer
 from tetris.state import State
@@ -29,7 +30,8 @@ class Tetris:
 
         frame_start = time()
         while not state.game_over:
-            state = Tetris.update(state)
+            inputs: Inputs = agent.outputs
+            state = Tetris.update(state, inputs)
 
             if self.renderer is not None:  # pragma: no cover
                 self.renderer.update(state)
@@ -45,7 +47,7 @@ class Tetris:
         agent.end()
 
     @staticmethod
-    def update(state: State) -> State:
+    def update(state: State, inputs: Inputs) -> State:
         """Update the state."""
         if state.can_drop_piece:
             piece_position: Position = state.piece_position + Position(0, 1)
@@ -54,5 +56,8 @@ class Tetris:
             state = state.lock_piece()
             state = state.new_piece()
             state = state.check_game_over()
+
+        if inputs.a and state.can_rotate_piece_clockwise:
+            state = state.rotate_piece_clockwise()
 
         return state
