@@ -69,6 +69,54 @@ class State:
 
         return True
 
+    @property
+    def can_rotate_piece_clockwise(self) -> bool:
+        """Return if the current piece can be rotated clockwise or not."""
+        rotated_piece = self.piece.rotated_clockwise
+
+        for relative_block_position in rotated_piece.rotation:
+            absolute_block_position: Position = self.piece_position + relative_block_position
+            x: int = absolute_block_position.x  # pylint: disable=invalid-name
+            y: int = absolute_block_position.y  # pylint: disable=invalid-name
+
+            if x < 0 or x >= COLUMNS or y >= ROWS:
+                return False
+
+            if self.playfield[y][x]:
+                return False
+
+        return True
+
+    @property
+    def can_rotate_piece_counter_clockwise(self) -> bool:
+        """Return if the current piece can be rotated counter clockwise or not."""
+        rotated_piece = self.piece.rotated_counter_clockwise
+
+        for relative_block_position in rotated_piece.rotation:
+            absolute_block_position: Position = self.piece_position + relative_block_position
+            x: int = absolute_block_position.x  # pylint: disable=invalid-name
+            y: int = absolute_block_position.y  # pylint: disable=invalid-name
+
+            if x < 0 or x >= COLUMNS or y >= ROWS:
+                return False
+
+            if self.playfield[y][x]:
+                return False
+
+        return True
+
+    def rotate_piece_clockwise(self) -> 'State':
+        """Return the state with the current piece rotated clockwise."""
+        piece = self.piece.rotated_clockwise
+        state = replace(self, piece=piece)
+        return state
+
+    def rotate_piece_counter_clockwise(self) -> 'State':
+        """Return the state with the current piece rotated counter clockwise."""
+        piece = self.piece.rotated_counter_clockwise
+        state = replace(self, piece=piece)
+        return state
+
     def lock_piece(self) -> 'State':
         """Return the state with the current piece locked at its position."""
         playfield = self.playfield.lock_piece(self.piece, self.piece_position)

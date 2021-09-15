@@ -4,8 +4,9 @@ from typing import Tuple
 import pytest
 
 from test_data.playfields import FilledPlayfield, PlayfieldWithJLockedAtSpawn
+from tetris.orientation import Horizontal, Vertical
 from tetris.piece import Piece
-from tetris.pieces import PIECES, J, Z
+from tetris.pieces import PIECES, I, J, Z
 from tetris.position import Position
 from tetris.state import COLUMNS, HIDDEN_ROWS, ROWS, Playfield, State
 
@@ -105,6 +106,62 @@ def test_state_can_drop_piece(state: State, expected_value: bool) -> None:
     value: bool = state.can_drop_piece
 
     assert value == expected_value
+
+
+# yapf: disable
+@pytest.mark.parametrize('state, expected_value', [
+    (State(), True),
+    (State(playfield=FilledPlayfield), False),
+    (State(I(Vertical), piece_position=Position(9, 0)), False),
+])
+# yapf: enable
+def test_can_rotate_piece_counter_clockwise(state: State,
+                                            expected_value: bool) -> None:
+    """Test the predicate which determines if the current piece can be rotated counter clockwise."""
+    value: bool = state.can_rotate_piece_counter_clockwise
+
+    assert value == expected_value
+
+
+# yapf: disable
+@pytest.mark.parametrize('state, expected_value', [
+    (State(), True),
+    (State(playfield=FilledPlayfield), False),
+    (State(I(Vertical), piece_position=Position(0, 0)), False),
+])
+# yapf: enable
+def test_can_rotate_piece_clockwise(state: State,
+                                    expected_value: bool) -> None:
+    """Test the predicate which determines if the current piece can be rotated clockwise."""
+    value: bool = state.can_rotate_piece_clockwise
+
+    assert value == expected_value
+
+
+# yapf: disable
+@pytest.mark.parametrize('state, expected_state_after', [
+    (State(I(Vertical), J()), State(I(Horizontal), J())),
+])
+# yapf: enable
+def test_rotate_piece_clockwise(state: State,
+                                expected_state_after: State) -> None:
+    """Test rotating the current piece clockwise."""
+    state_after = state.rotate_piece_clockwise()
+
+    assert state_after == expected_state_after
+
+
+# yapf: disable
+@pytest.mark.parametrize('state, expected_state_after', [
+    (State(I(Vertical), J()), State(I(Horizontal), J())),
+])
+# yapf: enable
+def test_rotate_piece_counter_clockwise(state: State,
+                                        expected_state_after: State) -> None:
+    """Test rotating the current piece counter clockwise."""
+    state_after = state.rotate_piece_counter_clockwise()
+
+    assert state_after == expected_state_after
 
 
 # yapf: disable
