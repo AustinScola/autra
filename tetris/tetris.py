@@ -57,7 +57,11 @@ class Tetris:
             state = state.new_piece()
             state = state.check_game_over()
 
-        if inputs.a and state.can_rotate_piece_clockwise:
-            state = state.rotate_piece_clockwise()
+        if inputs.a and not inputs.b:
+            if state.can_rotate_piece_clockwise:
+                state = state.rotate_piece_clockwise()
+        elif inputs.b and not inputs.a:
+            if state.can_rotate_piece_counter_clockwise:
+                state = state.rotate_piece_counter_clockwise()
 
         return state
