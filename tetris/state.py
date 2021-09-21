@@ -70,6 +70,30 @@ class State:
         return True
 
     @property
+    def can_shift_piece_left(self) -> bool:
+        """Return if the current piece can be shifted to the left or not."""
+        for block in self.piece.rotation:
+            y = self.piece_position.y + block.y  # pylint: disable=invalid-name
+            x = self.piece_position.x + block.x - 1  # pylint: disable=invalid-name
+
+            if x < 0 or self.playfield[y][x]:
+                return False
+
+        return True
+
+    @property
+    def can_shift_piece_right(self) -> bool:
+        """Return if the current piece can be shifted to the right or not."""
+        for block in self.piece.rotation:
+            y = self.piece_position.y + block.y  # pylint: disable=invalid-name
+            x = self.piece_position.x + block.x + 1  # pylint: disable=invalid-name
+
+            if x >= COLUMNS or self.playfield[y][x]:
+                return False
+
+        return True
+
+    @property
     def can_rotate_piece_clockwise(self) -> bool:
         """Return if the current piece can be rotated clockwise or not."""
         rotated_piece = self.piece.rotated_clockwise
@@ -104,6 +128,18 @@ class State:
                 return False
 
         return True
+
+    def shift_piece_left(self) -> 'State':
+        """Shift the current piece to the left."""
+        piece_position = self.piece_position + Position(-1, 0)
+        state = replace(self, piece_position=piece_position)
+        return state
+
+    def shift_piece_right(self) -> 'State':
+        """Shift the current piece to the right."""
+        piece_position = self.piece_position + Position(1, 0)
+        state = replace(self, piece_position=piece_position)
+        return state
 
     def rotate_piece_clockwise(self) -> 'State':
         """Return the state with the current piece rotated clockwise."""

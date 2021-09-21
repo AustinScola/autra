@@ -4,6 +4,7 @@ from time import sleep, time
 from typing import Optional
 
 from tetris.agent import Agent
+from tetris.outputs import HorizontalOutput as HorizontalInput
 from tetris.outputs import Outputs as Inputs
 from tetris.position import Position
 from tetris.renderer import Renderer
@@ -56,6 +57,13 @@ class Tetris:
             state = state.lock_piece()
             state = state.new_piece()
             state = state.check_game_over()
+
+        if inputs.horizontal == HorizontalInput.LEFT:
+            if state.can_shift_piece_left:
+                state = state.shift_piece_left()
+        elif inputs.horizontal == HorizontalInput.RIGHT:
+            if state.can_shift_piece_right:
+                state = state.shift_piece_right()
 
         if inputs.a and not inputs.b:
             if state.can_rotate_piece_clockwise:
