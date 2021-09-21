@@ -6,7 +6,7 @@ import pytest
 from test_data.playfields import FilledPlayfield, PlayfieldWithJLockedAtSpawn
 from tetris.orientation import Horizontal, Vertical
 from tetris.piece import Piece
-from tetris.pieces import PIECES, I, J, Z
+from tetris.pieces import PIECES, I, J, L, Z
 from tetris.position import Position
 from tetris.state import COLUMNS, HIDDEN_ROWS, ROWS, Playfield, State
 
@@ -111,6 +111,32 @@ def test_state_can_drop_piece(state: State, expected_value: bool) -> None:
 # yapf: disable
 @pytest.mark.parametrize('state, expected_value', [
     (State(), True),
+    (State(L(), piece_position=Position(1, 0)), False),
+])
+# yapf: enable
+def test_can_shift_piece_left(state: State, expected_value: bool) -> None:
+    """Test the predicate which determines if the current piece can be shifted to the left."""
+    value: bool = state.can_shift_piece_left
+
+    assert value == expected_value
+
+
+# yapf: disable
+@pytest.mark.parametrize('state, expected_value', [
+    (State(), True),
+    (State(L(), piece_position=Position(8, 0)), False),
+])
+# yapf: enable
+def test_can_shift_piece_right(state: State, expected_value: bool) -> None:
+    """Test the predicate which determines if the current piece can be shifted to the right."""
+    value: bool = state.can_shift_piece_right
+
+    assert value == expected_value
+
+
+# yapf: disable
+@pytest.mark.parametrize('state, expected_value', [
+    (State(), True),
     (State(playfield=FilledPlayfield), False),
     (State(I(Vertical), piece_position=Position(9, 0)), False),
 ])
@@ -136,6 +162,30 @@ def test_can_rotate_piece_clockwise(state: State,
     value: bool = state.can_rotate_piece_clockwise
 
     assert value == expected_value
+
+
+# yapf: disable
+@pytest.mark.parametrize('state, expected_state_after', [
+    (State(I(), J()), State(I(), J(), Position(4, 0))),
+])
+# yapf: enable
+def test_shift_piece_left(state: State, expected_state_after: State) -> None:
+    """Test shifting the current piece to the left."""
+    state_after = state.shift_piece_left()
+
+    assert state_after == expected_state_after
+
+
+# yapf: disable
+@pytest.mark.parametrize('state, expected_state_after', [
+    (State(I(), J()), State(I(), J(), Position(6, 0))),
+])
+# yapf: enable
+def test_shift_piece_right(state: State, expected_state_after: State) -> None:
+    """Test shifting the current piece to the right."""
+    state_after = state.shift_piece_right()
+
+    assert state_after == expected_state_after
 
 
 # yapf: disable
